@@ -120,7 +120,7 @@ function refreshAttribute(thing, attributePath = null) {
 function onThingChanged(thing) {
   dom.crudAttribute.editDisabled = (thing === null);
 
-  dom.tbodyAttributes.innerHTML = '';
+  dom.tbodyAttributes.textContent = '';
   let count = 0;
   let thingHasAttribute = false;
   if (thing && thing.attributes) {
@@ -170,7 +170,7 @@ function onEditToggle(event) {
     API.callDittoREST('GET', `/things/${Things.theThing.thingId}/attributes/${dom.crudAttribute.idValue}`,
         null, null, true)
         .then((response) => {
-          eTag = response.headers.get('ETag');
+          eTag = response.headers.get('ETag').replace('W/', '');
           return response.json();
         })
         .then((attributeValue) => {

@@ -113,7 +113,7 @@ function onResetMessagesClick() {
   messages = [];
   filteredMessages = [];
   dom.badgeMessageIncomingCount.textContent = '';
-  dom.tbodyMessagesIncoming.innerHTML = '';
+  dom.tbodyMessagesIncoming.textContent = '';
   messageDetail.setValue('');
 }
 
@@ -125,14 +125,14 @@ function onSelectThingUpdateMessageContentSelect() {
 function onMessage(messageData) {
   messages.push(messageData);
   
-  const filteredMessage = dom.tableFilterMessagesIncoming.filterItems(messages);
+  const filteredMessage = dom.tableFilterMessagesIncoming.filterItems([messageData]);
   
   if (filteredMessage.length > 0) {
     filteredMessages.push(filteredMessage[0]);
     addTableRow(filteredMessage[0]);
   }
   
-  Utils.updateCounterBadge(dom.badgeMessageIncomingCount, messages, filteredMessage);
+  Utils.updateCounterBadge(dom.badgeMessageIncomingCount, messages, filteredMessages);
 }
 
 function addTableRow(messageData: any) {
@@ -188,7 +188,7 @@ function createFilterOptions(thing?: any): [Term?] {
 }
 
 function onMessageFilterChange(event: CustomEvent) {
-  dom.tbodyMessagesIncoming.innerHTML = '';
+  dom.tbodyMessagesIncoming.textContent = '';
   filteredMessages = dom.tableFilterMessagesIncoming.filterItems(messages);
   filteredMessages.forEach((entry) => addTableRow(entry));
   Utils.updateCounterBadge(dom.badgeMessageIncomingCount, messages, filteredMessages);

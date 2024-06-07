@@ -12,14 +12,14 @@
  * SPDX-License-Identifier: EPL-2.0
  */
 
-import {JSONPath} from 'jsonpath-plus';
+import { JSONPath } from 'jsonpath-plus';
 import * as API from '../api.js';
 /* eslint-disable comma-dangle */
 /* eslint-disable new-cap */
 import * as Utils from '../utils.js';
+import featuresHTML from './features.html';
 import * as Fields from './fields.js';
 import * as Things from './things.js';
-import featuresHTML from './features.html';
 
 const observers = [];
 
@@ -219,7 +219,7 @@ function refreshFeature(thing, featureId = null) {
 function onThingChanged(thing) {
   dom.crudFeature.editDisabled = (thing === null);
   // Update features table
-  dom.tbodyFeatures.innerHTML = '';
+  dom.tbodyFeatures.textContent = '';
   let count = 0;
   let thingHasFeature = false;
   if (thing && thing.features) {
